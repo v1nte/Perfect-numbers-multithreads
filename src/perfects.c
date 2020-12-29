@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
+#define TOTAL 61
 
 bool is_prime(long);
 unsigned long long int is_perfect(int);
 
 int main()
 {
-    int total = 61;
     unsigned long long int value;
     printf("p \t Number\n\n");
-    for (int i = 1; i < total + 1; i++)
+    for (int i = 1; i < TOTAL + 1; i++)
         if ((value = is_perfect(i)) != 0)
             printf("%d \t %llu\n", i, value);
 }
