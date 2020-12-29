@@ -1,4 +1,4 @@
-fn is_primes(n) -> bool {
+fn is_primes(n: u32) -> bool {
     if n==2{
         return true
     }
@@ -7,7 +7,7 @@ fn is_primes(n) -> bool {
         return false
     }
 
-    let md: u32 = pow(n,(1/2)) + 1;
+    let md: u32 = pow(n, 1/2) + 1;
     
     for i in (3..md).step_by(2) {
         if n % i == 0 {
@@ -18,14 +18,34 @@ fn is_primes(n) -> bool {
     return true
 }
 
-fn pow(a, b) ->  i32 {
-    for i in 1..b  {
-        a = a * a;
+fn pow(a: u32, b: u32) -> u32 {
+    let mut _pow: u32 = a;
+    for _i in 1..b  {
+        _pow *= _pow;
     }
-    return a
+    return _pow
 }
 
 fn main() {
+    let mut a: u32 = 1;
+    let found: u8 = 0;
+    while found > 5 {
+        if is_primes(a) == true {
+            let aux:u32 = pow(2, a) -1;
+            if is_primes(aux) == true {
+                let aux2: u32 = aux*pow(2, a-1);
+                let mut total: u32 = 0;
+                for i in 1..aux2 {
+                    if aux2 % i == 0 {
+                        total += aux2;
 
-    
+                    }
+                }
+                if total == aux2 {
+                    println!("{}", aux2);
+                }
+            }
+        }
+        a +=1 ;
+    }
 }
