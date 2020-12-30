@@ -1,4 +1,18 @@
-fn is_primes(n: u32) -> bool {
+
+fn main() {
+    let total: u32 = 61;
+    let mut value: u64;
+    println!("p\t Number\n");
+
+    for i in 1..total+1 {
+        value = is_perfect(i);
+        if value != 0 {
+            println!("{}\t {}", i, value);
+        }
+    }
+}
+
+fn is_prime(n: u64) -> bool {
     if n==2{
         return true
     }
@@ -7,9 +21,10 @@ fn is_primes(n: u32) -> bool {
         return false
     }
 
-    let md: u32 = pow(n, 1/2) + 1;
-    
-    for i in (3..md).step_by(2) {
+    let m = (n as f64).sqrt();
+    let maxdiv = m + 1.0_f64;
+
+    for i in (3..(maxdiv as u64)).step_by(2) {
         if n % i == 0 {
             return false
         }
@@ -18,34 +33,14 @@ fn is_primes(n: u32) -> bool {
     return true
 }
 
-fn pow(a: u32, b: u32) -> u32 {
-    let mut _pow: u32 = a;
-    for _i in 1..b  {
-        _pow *= _pow;
-    }
-    return _pow
-}
+fn is_perfect(a: u32) -> u64 {
+    if is_prime(a as u64) == true {
+        let aux: u64 = 2_u64.pow(a) - 1;
 
-fn main() {
-    let mut a: u32 = 1;
-    let found: u8 = 0;
-    while found > 5 {
-        if is_primes(a) == true {
-            let aux:u32 = pow(2, a) -1;
-            if is_primes(aux) == true {
-                let aux2: u32 = aux*pow(2, a-1);
-                let mut total: u32 = 0;
-                for i in 1..aux2 {
-                    if aux2 % i == 0 {
-                        total += aux2;
-
-                    }
-                }
-                if total == aux2 {
-                    println!("{}", aux2);
-                }
-            }
+        if is_prime(aux) == true {
+            let val: u64 = aux * 2_u64.pow(a - 1);
+            return val
         }
-        a +=1 ;
     }
+    0
 }
