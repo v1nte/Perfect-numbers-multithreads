@@ -1,4 +1,5 @@
-TOTAL = 61
+from multiprocessing import Pool
+TOTAL = 31
 
 
 def is_prime(n: int) -> bool:
@@ -25,13 +26,17 @@ def is_perfect(a: int) -> int:
 
         if is_prime(aux):
             return aux*2**(a-1)
+    return 0
 
 
 if __name__=="__main__":
 
     print("p\tnumber\n")
-    for i in range(1, TOTAL + 1):
-        value = is_perfect(i)
+    with Pool() as p:
+        log = p.map(is_perfect, range(1, TOTAL + 1))
 
-        if value:
-            print(f"{i}\t{value}")
+    for i, n in enumerate(log):
+        if n:
+            print(i, "\t", n)
+        else:
+            pass
